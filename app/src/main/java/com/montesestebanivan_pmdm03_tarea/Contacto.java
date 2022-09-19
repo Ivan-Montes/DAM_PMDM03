@@ -1,5 +1,7 @@
 package com.montesestebanivan_pmdm03_tarea;
 
+import androidx.annotation.NonNull;
+
 import java.net.URI;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,10 +49,6 @@ public class Contacto implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTipoNotif() {
         return tipoNotif;
     }
@@ -87,34 +85,15 @@ public class Contacto implements Serializable {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getImagenId() {
-        return imagenId;
-    }
-
-    public void setImagenId(String imagenId) {
-        this.imagenId = imagenId;
-    }
-
     public URI getRutaImagen() {
         return rutaImagen;
-    }
-
-    public void setRutaImagen(URI rutaImagen) {
-        this.rutaImagen = rutaImagen;
     }
 
     public ArrayList<String> getSetTelefonos() {
         return setTelefonos;
     }
 
-    public void setSetTelefonos(ArrayList<String> setTelefonos) {
-        this.setTelefonos = setTelefonos;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return "Contacto{" +

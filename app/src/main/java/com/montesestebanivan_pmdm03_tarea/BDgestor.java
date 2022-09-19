@@ -25,7 +25,7 @@ public class BDgestor extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME = "miscumples";
     private static Optional<ArrayList<Contacto>>optListContactos = Optional.empty();
-    private Context isTheFinalContext;
+    private final Context isTheFinalContext;
 
     public BDgestor(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -173,7 +173,6 @@ public class BDgestor extends SQLiteOpenHelper {
 
             optListContactos
                     .get()
-                    .stream()
                     .forEach( o ->{
                         ContentValues values = new ContentValues();
                         values.put("ID", o.getId());
@@ -201,7 +200,7 @@ public class BDgestor extends SQLiteOpenHelper {
     private boolean guardarContactoBD(HashMap<String,String>mapDatos){
 
         boolean result = false;
-        int count = 0;
+        int count;
 
         SQLiteDatabase db = this.getWritableDatabase();
 

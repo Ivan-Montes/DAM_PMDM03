@@ -1,8 +1,5 @@
 package com.montesestebanivan_pmdm03_tarea;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,7 +10,6 @@ import android.provider.ContactsContract;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,6 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -77,22 +76,19 @@ public class VerContactoActivity extends AppCompatActivity {
             etCumple.setText(contacto.getFechaNacimiento()); ///Recuperar fecha y cargarla en data pikcer???
             etCumple.setInputType(InputType.TYPE_NULL);
             etCumple.setFocusable(false);
-            etCumple.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Fragmentos.DatePickerFragment newFragment = new Fragmentos.DatePickerFragment();
-                    newFragment.setOnDateSetListener(new DatePickerDialog.OnDateSetListener(){
+            etCumple.setOnClickListener(v -> {
+                Fragmentos.DatePickerFragment newFragment = new Fragmentos.DatePickerFragment();
+                newFragment.setOnDateSetListener(new DatePickerDialog.OnDateSetListener(){
 
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                            // +1 because January is zero
-                            final String selectedDate = day + " / " + (month+1) + " / " + year;
-                            etCumple.setText(selectedDate);
-                        }
-                    });
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        // +1 because January is zero
+                        final String selectedDate = day + " / " + (month+1) + " / " + year;
+                        etCumple.setText(selectedDate);
+                    }
+                });
 
-                    newFragment.show(getSupportFragmentManager(), "datePicker");
-                }
+                newFragment.show(getSupportFragmentManager(), "datePicker");
             });
 
 

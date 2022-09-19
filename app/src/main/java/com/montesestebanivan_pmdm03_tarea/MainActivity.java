@@ -1,15 +1,8 @@
 package com.montesestebanivan_pmdm03_tarea;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,10 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TimePicker;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,30 +119,22 @@ public class MainActivity extends AppCompatActivity {
         AdapterContacto adapterContacto = new AdapterContacto(this,R.id.listViewContactos,bdGestor.getOptListContactos().orElse(new ArrayList<>()));
         ListView listView = findViewById(R.id.listViewContactos);
         listView.setAdapter(adapterContacto);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener((parent, view, position, id) -> {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Contacto contacto = bdGestor.getOptListContactos().get().get(position);
-                Intent i = new Intent(MainActivity.this.getApplicationContext(),VerContactoActivity.class);
-                //Intent i = new Intent(getApplicationContext(),VerContactoActivity.class);
-                i.putExtra("contacto",contacto);
-                MainActivity.this.startActivity(i);
-            }
+            Contacto contacto = bdGestor.getOptListContactos().get().get(position);
+            Intent i = new Intent(MainActivity.this.getApplicationContext(),VerContactoActivity.class);
+            //Intent i = new Intent(getApplicationContext(),VerContactoActivity.class);
+            i.putExtra("contacto",contacto);
+            MainActivity.this.startActivity(i);
         });
     }
 
     private void confFelicitaciones(){
 
         Fragmentos.TimePickerFragment timePickerFragment = new Fragmentos.TimePickerFragment();
-        timePickerFragment.setOnTimeSetListener(new TimePickerDialog.OnTimeSetListener(){
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                Log.w("NuevoTime","Hora: " + hourOfDay + " <|> Minutos: " + minute);
-                confAlarma(hourOfDay,minute);
-            }
+        timePickerFragment.setOnTimeSetListener((view, hourOfDay, minute) -> {
+            Log.w("NuevoTime","Hora: " + hourOfDay + " <|> Minutos: " + minute);
+            confAlarma(hourOfDay,minute);
         });
 
         timePickerFragment.show(getSupportFragmentManager(), "timePicker");
